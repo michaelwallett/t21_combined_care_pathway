@@ -85,14 +85,24 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(height: 50, child: Text(pathwayMonth.title)),
                 Column(
                     children: pathwayMonth.eventDates.map((pathwayEventDate) {
-                  return ListTile(
-                      leading: const FlutterLogo(),
-                      title: Text(pathwayEventDate.event.title),
-                      subtitle: Text(pathwayEventDate.date.toIso8601String()),
-                      trailing: const Icon(Icons.more_vert));
+                  return Card(
+                    child: ListTile(
+                        leading: getEventIcon(pathwayEventDate.event.type),
+                        title: Text(pathwayEventDate.event.title),
+                        subtitle: Text(
+                            DateFormat.yMMMMd().format(pathwayEventDate.date))),
+                  );
                 }).toList())
               ]);
             }));
+  }
+
+  Icon getEventIcon(PathwayEventType eventType) {
+    if (eventType == PathwayEventType.birthday) {
+      return const Icon(Icons.cake);
+    }
+
+    return const Icon(Icons.event);
   }
 }
 

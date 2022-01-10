@@ -1,5 +1,12 @@
 [
   {
+    "title": "Birthday",
+    "eventType": "birthday",
+    "initialSchedule": [
+      { "years": 0, "months": 0 }
+    ]
+  },
+  {
     "title": "Community Paediatrics",
     "initialSchedule": [
       { "years": 0, "months": 3 },
