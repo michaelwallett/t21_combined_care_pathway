@@ -14,6 +14,7 @@ class T21PathwayApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        title: 'T21 Combined Care Pathway',
         home: FutureBuilder<List<PathwayEvent>>(
             future: getPathwayEvents(context),
             builder: (context, snapshot) {
@@ -67,10 +68,12 @@ class HomeScreen extends StatelessWidget {
         currentDate = currentDate.add(const Duration(days: 1));
       } while (currentMonth == currentDate.month);
 
-      pathwayMonths
-          .add(PathwayMonth(pathwayMonthTitle, matchedPathwayEventDates));
+      if (matchedPathwayEventDates.isNotEmpty) {
+        pathwayMonths
+            .add(PathwayMonth(pathwayMonthTitle, matchedPathwayEventDates));
 
-      matchedPathwayEventDates = [];
+        matchedPathwayEventDates = [];
+      }
     } while (currentDate.isBefore(dateInFuture));
 
     return Scaffold(
@@ -82,15 +85,27 @@ class HomeScreen extends StatelessWidget {
               var pathwayMonth = pathwayMonths[index];
 
               return Column(children: [
-                SizedBox(height: 50, child: Text(pathwayMonth.title)),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Text(pathwayMonth.title,
+                      style: const TextStyle(
+                          fontSize: 18.0, fontWeight: FontWeight.bold)),
+                ),
                 Column(
                     children: pathwayMonth.eventDates.map((pathwayEventDate) {
                   return Card(
-                    child: ListTile(
-                        leading: getEventIcon(pathwayEventDate.event.type),
-                        title: Text(pathwayEventDate.event.title),
-                        subtitle: Text(
-                            DateFormat.yMMMMd().format(pathwayEventDate.date))),
+                    child: Column(
+                      children: [
+                        ListTile(
+                            leading: getEventIcon(pathwayEventDate.event.type),
+                            title: Text(pathwayEventDate.event.title),
+                            subtitle: Text(DateFormat.yMMMMd()
+                                .format(pathwayEventDate.date)),
+                            trailing: IconButton(
+                                onPressed: () {},
+                                icon: const Icon(Icons.info_outline)))
+                      ],
+                    ),
                   );
                 }).toList())
               ]);

@@ -7,7 +7,79 @@
     ]
   },
   {
-    "title": "Community Paediatrics",
+    "title": "6-in-1 vaccine",
+    "initialSchedule": [
+      { "years": 0, "months": 2 }
+    ]
+  },
+  {
+    "title": "Rotavirus vaccine",
+    "initialSchedule": [
+      { "years": 0, "months": 2 }
+    ]
+  },
+  {
+    "title": "MenB vaccine",
+    "initialSchedule": [
+      { "years": 0, "months": 2 }
+    ]
+  },
+  {
+    "title": "6-in-1 vaccine (2nd dose)",
+    "initialSchedule": [
+      { "years": 0, "months": 3 }
+    ]
+  },
+  {
+    "title": "Rotavirus vaccine (2nd dose)",
+    "initialSchedule": [
+      { "years": 0, "months": 3 }
+    ]
+  },
+  {
+    "title": "Pneumococcal (PCV) vaccine",
+    "initialSchedule": [
+      { "years": 0, "months": 3 }
+    ]
+  },
+  {
+    "title": "6-in-1 vaccine (3rd dose)",
+    "initialSchedule": [
+      { "years": 0, "months": 4 }
+    ]
+  },
+  {
+    "title": "MenB vaccine (2nd dose)",
+    "initialSchedule": [
+      { "years": 0, "months": 4 }
+    ]
+  },
+  {
+    "title": "MenB vaccine (3rd dose)",
+    "initialSchedule": [
+      { "years": 1, "months": 0 }
+    ]
+  },
+  {
+    "title": "Hib/MenC vaccine",
+    "initialSchedule": [
+      { "years": 1, "months": 0 }
+    ]
+  },
+  {
+    "title": "MMR vaccine",
+    "initialSchedule": [
+      { "years": 1, "months": 0 }
+    ]
+  },
+  {
+    "title": "Pneumococcal (PCV) vaccine (2nd dose)",
+    "initialSchedule": [
+      { "years": 1, "months": 0 }
+    ]
+  },
+  {
+    "title": "Community paediatric clinic appointment",
     "initialSchedule": [
       { "years": 0, "months": 3 },
       { "years": 0, "months": 6 },
@@ -20,7 +92,7 @@
     }
   },
   {
-    "title": "Enhanced review with GP",
+    "title": "GP enhanced review",
     "initialSchedule": [],
     "repeatingSchedule": { 
       "fromAge": { "years": 14, "months": 0 }, 
