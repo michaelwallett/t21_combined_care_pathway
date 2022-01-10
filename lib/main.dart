@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:age_calculator/age_calculator.dart';
+import 'pathway_event.dart';
+import 'pathway_event_mapper.dart';
 
 void main() {
   runApp(const T21PathwayApp());
@@ -11,11 +13,39 @@ class T21PathwayApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return MaterialApp(
+        home: FutureBuilder<List<PathwayEvent>>(
+            future: getPathwayEvents(context),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done &&
+                  snapshot.hasData) {
+                return HomeScreen(pathwayEvents: snapshot.data!);
+              } else {
+                return const SplashScreen();
+              }
+            }));
+  }
+
+  Future<List<PathwayEvent>> getPathwayEvents(BuildContext context) {
+    var pathwayEventsJson =
+        DefaultAssetBundle.of(context).loadString('assets/pathway_events.json');
+
+    return PathwayEventMapper().fromJson(pathwayEventsJson);
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  final List<PathwayEvent> pathwayEvents;
+
+  const HomeScreen({Key? key, required this.pathwayEvents}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     DateTime dateOfBirth = DateTime(2021, 2, 8);
     DateTime dateInFuture = dateOfBirth.add(const Duration(days: (365 * 1)));
 
     List<PathwayMonth> pathwayMonths = [];
-    List<PathwayEvent> pathwayEvents = [];
+    List<PathwayEventDate> matchedPathwayEventDates = [];
 
     var currentDate = dateOfBirth;
 
@@ -26,52 +56,80 @@ class T21PathwayApp extends StatelessWidget {
       do {
         var age = AgeCalculator.age(dateOfBirth, today: currentDate);
 
-        print('$age');
-
-        pathwayEvents
-            .add(PathwayEvent(currentDate, currentDate.toIso8601String()));
+        matchedPathwayEventDates.addAll(pathwayEvents.where((pathwayEvent) {
+          return pathwayEvent.initialSchedule.any((schedule) {
+            return age.years == schedule.years &&
+                age.months == schedule.months &&
+                age.days == 0;
+          });
+        }).map((pathwayEvent) => PathwayEventDate(pathwayEvent, currentDate)));
 
         currentDate = currentDate.add(const Duration(days: 1));
       } while (currentMonth == currentDate.month);
 
-      pathwayMonths.add(PathwayMonth(pathwayMonthTitle, pathwayEvents));
+      pathwayMonths
+          .add(PathwayMonth(pathwayMonthTitle, matchedPathwayEventDates));
 
-      pathwayEvents = [];
+      matchedPathwayEventDates = [];
     } while (currentDate.isBefore(dateInFuture));
 
-    return MaterialApp(
-        home: Scaffold(
-            appBar: AppBar(title: const Text('T21 Combined Care Pathway')),
-            body: ListView.builder(
-                padding: const EdgeInsets.all(8),
-                itemCount: pathwayMonths.length,
-                itemBuilder: (BuildContext context, int index) {
-                  var pathwayMonth = pathwayMonths[index];
+    return Scaffold(
+        appBar: AppBar(title: const Text('T21 Combined Care Pathway')),
+        body: ListView.builder(
+            padding: const EdgeInsets.all(8),
+            itemCount: pathwayMonths.length,
+            itemBuilder: (BuildContext context, int index) {
+              var pathwayMonth = pathwayMonths[index];
 
-                  return Column(children: [
-                    SizedBox(height: 60, child: Text(pathwayMonth.title)),
-                    Column(
-                        children: pathwayMonth.events.map((pathwayEvent) {
-                      return ListTile(
-                          leading: const FlutterLogo(),
-                          title: Text(pathwayEvent.title),
-                          trailing: const Icon(Icons.more_vert));
-                    }).toList())
-                  ]);
-                })));
+              return Column(children: [
+                SizedBox(height: 50, child: Text(pathwayMonth.title)),
+                Column(
+                    children: pathwayMonth.eventDates.map((pathwayEventDate) {
+                  return ListTile(
+                      leading: const FlutterLogo(),
+                      title: Text(pathwayEventDate.event.title),
+                      subtitle: Text(pathwayEventDate.date.toIso8601String()),
+                      trailing: const Icon(Icons.more_vert));
+                }).toList())
+              ]);
+            }));
+  }
+}
+
+class SplashScreen extends StatelessWidget {
+  const SplashScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          Text(
+            "Initialization",
+            style: TextStyle(
+              fontSize: 32,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 20),
+          CircularProgressIndicator()
+        ],
+      ),
+    );
   }
 }
 
 class PathwayMonth {
   final String title;
-  final List<PathwayEvent> events;
+  final List<PathwayEventDate> eventDates;
 
-  PathwayMonth(this.title, this.events);
+  PathwayMonth(this.title, this.eventDates);
 }
 
-class PathwayEvent {
+class PathwayEventDate {
+  final PathwayEvent event;
   final DateTime date;
-  final String title;
 
-  PathwayEvent(this.date, this.title);
+  PathwayEventDate(this.event, this.date);
 }

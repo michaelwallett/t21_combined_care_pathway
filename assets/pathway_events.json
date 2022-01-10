@@ -1,0 +1,56 @@
+[
+  {
+    "title": "Community Paediatrics",
+    "initialSchedule": [
+      { "years": 0, "months": 3 },
+      { "years": 0, "months": 6 },
+      { "years": 1, "months": 0 }
+    ],
+    "repeatingSchedule": { 
+      "fromAge": { "years": 2, "months": 0 }, 
+      "untilAge": { "years": 16, "months": 0 },
+      "interval": { "years": 1, "months": 0 }
+    }
+  },
+  {
+    "title": "Enhanced review with GP",
+    "initialSchedule": [],
+    "repeatingSchedule": { 
+      "fromAge": { "years": 14, "months": 0 }, 
+      "interval": { "years": 1, "months": 0 }
+    }
+  },
+  {
+    "title": "Flu vaccine - first dose",
+    "initialSchedule": [],
+    "repeatingSchedule": { 
+      "fromMonth": 9,
+      "untilMonth": 12,
+      "fromAge": { "years": 0, "months": 6 }, 
+      "interval": { "years": 1, "months": 0 }
+    }
+  },
+  {
+    "title": "Thyroid function",
+    "initialSchedule": [
+      { "years": 0, "months": 6 },
+      { "years": 1, "months": 0 }
+    ],
+    "repeatingSchedule": { 
+      "fromAge": { "years": 2, "months": 0 }, 
+      "interval": { "years": 1, "months": 0 }
+    }
+  },
+  {
+    "title": "Overnight oximetry",
+    "initialSchedule": [
+      { "years": 0, "months": 6 },
+      { "years": 1, "months": 0 }
+    ],
+    "repeatingSchedule": { 
+      "fromAge": { "years": 2, "months": 0 },
+      "untilAge": { "years": 5, "months": 0 }, 
+      "interval": { "years": 1, "months": 0 }
+    }
+  }
+]
