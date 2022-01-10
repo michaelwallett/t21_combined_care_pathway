@@ -17,16 +17,23 @@ class T21PathwayApp extends StatefulWidget {
 
 class _T21PathwayAppState extends State<T21PathwayApp> {
   PathwayEventDate? _selectedPathwayEventDate;
+  late Future<List<PathwayEvent>> _futurePathwayEvents;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _futurePathwayEvents = _getPathwayEvents(context);
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'T21 Combined Care Pathway',
         home: FutureBuilder<List<PathwayEvent>>(
-            future: _getPathwayEvents(context),
+            future: _futurePathwayEvents,
             builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done &&
-                  snapshot.hasData) {
+              if (snapshot.hasData) {
                 return Navigator(
                   pages: [
                     PathwayEventListPage(
@@ -47,7 +54,7 @@ class _T21PathwayAppState extends State<T21PathwayApp> {
                   },
                 );
               } else {
-                return const SplashScreen();
+                return const CircularProgressIndicator();
               }
             }));
   }
@@ -155,30 +162,6 @@ class PathwayEventListScreen extends StatelessWidget {
     }
 
     return const Icon(Icons.event);
-  }
-}
-
-class SplashScreen extends StatelessWidget {
-  const SplashScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
-          Text(
-            "Initialization",
-            style: TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(height: 20),
-          CircularProgressIndicator()
-        ],
-      ),
-    );
   }
 }
 
