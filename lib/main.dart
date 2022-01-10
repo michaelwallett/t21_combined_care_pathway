@@ -8,37 +8,73 @@ void main() {
   runApp(const T21PathwayApp());
 }
 
-class T21PathwayApp extends StatelessWidget {
+class T21PathwayApp extends StatefulWidget {
   const T21PathwayApp({Key? key}) : super(key: key);
+
+  @override
+  State<T21PathwayApp> createState() => _T21PathwayAppState();
+}
+
+class _T21PathwayAppState extends State<T21PathwayApp> {
+  PathwayEventDate? _selectedPathwayEventDate;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'T21 Combined Care Pathway',
         home: FutureBuilder<List<PathwayEvent>>(
-            future: getPathwayEvents(context),
+            future: _getPathwayEvents(context),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done &&
                   snapshot.hasData) {
-                return HomeScreen(pathwayEvents: snapshot.data!);
+                return Navigator(
+                  pages: [
+                    PathwayEventListPage(
+                        snapshot.data!, _onPathwayEventDateSelected),
+                    if (_selectedPathwayEventDate != null)
+                      PathwayEventDetailsPage(_selectedPathwayEventDate!)
+                  ],
+                  onPopPage: (route, result) {
+                    if (!route.didPop(result)) {
+                      return false;
+                    }
+
+                    setState(() {
+                      _selectedPathwayEventDate = null;
+                    });
+
+                    return true;
+                  },
+                );
               } else {
                 return const SplashScreen();
               }
             }));
   }
 
-  Future<List<PathwayEvent>> getPathwayEvents(BuildContext context) {
+  Future<List<PathwayEvent>> _getPathwayEvents(BuildContext context) {
     var pathwayEventsJson =
         DefaultAssetBundle.of(context).loadString('assets/pathway_events.json');
 
     return PathwayEventMapper().fromJson(pathwayEventsJson);
   }
+
+  void _onPathwayEventDateSelected(PathwayEventDate pathwayEventDate) {
+    setState(() {
+      _selectedPathwayEventDate = pathwayEventDate;
+    });
+  }
 }
 
-class HomeScreen extends StatelessWidget {
+class PathwayEventListScreen extends StatelessWidget {
   final List<PathwayEvent> pathwayEvents;
+  final ValueChanged<PathwayEventDate> onPathwayEventDateSelected;
 
-  const HomeScreen({Key? key, required this.pathwayEvents}) : super(key: key);
+  const PathwayEventListScreen(
+      {Key? key,
+      required this.pathwayEvents,
+      required this.onPathwayEventDateSelected})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +137,9 @@ class HomeScreen extends StatelessWidget {
                             subtitle: Text(DateFormat.yMMMMd()
                                 .format(pathwayEventDate.date)),
                             trailing: IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  onPathwayEventDateSelected(pathwayEventDate);
+                                },
                                 icon: const Icon(Icons.info_outline)))
                       ],
                     ),
@@ -140,6 +178,57 @@ class SplashScreen extends StatelessWidget {
           CircularProgressIndicator()
         ],
       ),
+    );
+  }
+}
+
+class PathwayEventDetailsScreen extends StatelessWidget {
+  final PathwayEventDate pathwayEventDate;
+
+  const PathwayEventDetailsScreen({Key? key, required this.pathwayEventDate})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(title: const Text('T21 Combined Care Pathway')),
+        body: Text(pathwayEventDate.event.title));
+  }
+}
+
+class PathwayEventListPage extends Page {
+  final List<PathwayEvent> pathwayEvents;
+  final ValueChanged<PathwayEventDate> onPathwayEventDateSelected;
+
+  PathwayEventListPage(this.pathwayEvents, this.onPathwayEventDateSelected)
+      : super(key: ValueKey('$PathwayEventListPage'));
+
+  @override
+  Route createRoute(BuildContext context) {
+    return MaterialPageRoute(
+      settings: this,
+      builder: (BuildContext context) {
+        return PathwayEventListScreen(
+            pathwayEvents: pathwayEvents,
+            onPathwayEventDateSelected: onPathwayEventDateSelected);
+      },
+    );
+  }
+}
+
+class PathwayEventDetailsPage extends Page {
+  final PathwayEventDate pathwayEventDate;
+
+  PathwayEventDetailsPage(this.pathwayEventDate)
+      : super(key: ValueKey(pathwayEventDate));
+
+  @override
+  Route createRoute(BuildContext context) {
+    return MaterialPageRoute(
+      settings: this,
+      builder: (BuildContext context) {
+        return PathwayEventDetailsScreen(pathwayEventDate: pathwayEventDate);
+      },
     );
   }
 }
