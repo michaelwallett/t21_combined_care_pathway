@@ -79,7 +79,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(title: const Text('T21 Combined Care Pathway')),
         body: ListView.builder(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8.0),
             itemCount: pathwayMonths.length,
             itemBuilder: (BuildContext context, int index) {
               var pathwayMonth = pathwayMonths[index];
@@ -88,8 +88,7 @@ class HomeScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Text(pathwayMonth.title,
-                      style: const TextStyle(
-                          fontSize: 18.0, fontWeight: FontWeight.bold)),
+                      style: Theme.of(context).textTheme.headline6),
                 ),
                 Column(
                     children: pathwayMonth.eventDates.map((pathwayEventDate) {
