@@ -110,7 +110,13 @@
     }
   },
   {
-    "title": "Thyroid function",
+    "title": "Thyroid function check",
+    "generalInfo": "Thyroid issues are common in children and adults who have Down’s syndrome. The thyroid gland is in the front of your neck just below the Adam’s apple. The gland produces a number of different hormones, the main ones being thyroxine (T4) and triiodothyronine (T3). These hormones help the cells in the body to work properly. They help regulate the body’s energy levels and play a part in physical and mental development.",
+    "medicalInfo": "Venepuncture at age 6 months, 1 year and annually thereafter throughout life - To check T4, TSH and thyroid antibodies.\nWhere the T4 is normal and the child is asymptomatic but there is a mildly raised TSH (less than or equal to 10mu/l) or thyroid antibodies are present re-check after 6 months. A specialist opinion may be warranted.\nHave a low threshold for testing thyroid function at other times if clinically indicated e.g. lethargy and/or changes in affect, cognition, growth, or weight. Testing should be continued throughout life.\nIf a child is already under the endocrinology team on Thyroxine supplements, please leave monitoring of TFT's with the endocrine team.",
+    "infoLinks": [
+      { "title": "Down's Syndrome Association - Thyroid", "url": "https://www.downs-syndrome.org.uk/about-downs-syndrome/health-and-wellbeing/thyroid/" },
+      { "title": "NHS - Underactive thyroid", "url": "https://www.nhs.uk/conditions/underactive-thyroid-hypothyroidism/" }
+    ],
     "initialSchedule": [
       { "years": 0, "months": 6 },
       { "years": 1, "months": 0 }

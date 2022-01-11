@@ -1,0 +1,1 @@
+enum PathwayEventType { birthday, event }
