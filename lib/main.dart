@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'pathway_event.dart';
-import 'pathway_event_date.dart';
-import 'pathway_event_details_page.dart';
-import 'pathway_event_list_page.dart';
-import 'pathway_event_mapper.dart';
+import 'models/pathway_event.dart';
+import 'models/pathway_event_date.dart';
+import 'pages/pathway_event_details_page.dart';
+import 'pages/pathway_event_list_page.dart';
+import 'mappers/pathway_event_mapper.dart';
 
 void main() {
   runApp(const T21PathwayApp());

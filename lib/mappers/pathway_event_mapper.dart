@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'pathway_event.dart';
+import '../models/pathway_event.dart';
 
 class PathwayEventMapper {
   Future<List<PathwayEvent>> fromJson(

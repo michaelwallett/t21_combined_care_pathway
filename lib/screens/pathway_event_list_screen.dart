@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:age_calculator/age_calculator.dart';
-import 'pathway_event.dart';
-import 'pathway_event_date.dart';
-import 'pathway_month.dart';
+import '../models/pathway_event.dart';
+import '../models/pathway_event_date.dart';
+import '../models/pathway_month.dart';
 
 class PathwayEventListScreen extends StatelessWidget {
   final List<PathwayEvent> pathwayEvents;

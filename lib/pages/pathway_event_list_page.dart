@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'pathway_event.dart';
-import 'pathway_event_date.dart';
-import 'pathway_event_list_screen.dart';
+import '../models/pathway_event.dart';
+import '../models/pathway_event_date.dart';
+import '../screens/pathway_event_list_screen.dart';
 
 class PathwayEventListPage extends Page {
   final List<PathwayEvent> pathwayEvents;

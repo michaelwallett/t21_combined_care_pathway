@@ -1,4 +1,4 @@
-import 'package:t21_combined_care_pathway/age_interval.dart';
+import 'age_interval.dart';
 
 class PathwayEvent {
   String title = '';

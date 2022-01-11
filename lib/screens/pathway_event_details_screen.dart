@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'pathway_event_date.dart';
+import '../models/pathway_event_date.dart';
 
 class PathwayEventDetailsScreen extends StatelessWidget {
   final PathwayEventDate pathwayEventDate;
