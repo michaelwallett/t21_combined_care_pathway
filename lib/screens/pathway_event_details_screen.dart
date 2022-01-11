@@ -30,17 +30,18 @@ class PathwayEventDetailsScreen extends StatelessWidget {
                 ListTile(
                     leading: const Icon(Icons.medical_services_outlined),
                     title: Text(pathwayEventDate.event.medicalInfo)),
-                ListTile(
-                    leading: const Icon(Icons.link_outlined),
-                    title: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: pathwayEventDate.event.infoLinks.map((link) {
-                          return TextButton(
-                              onPressed: () {
-                                launch(link.url);
-                              },
-                              child: Text(link.title));
-                        }).toList()))
+                Column(
+                  children: pathwayEventDate.event.infoLinks.map((link) {
+                    return ListTile(
+                        leading: const Icon(Icons.link_outlined),
+                        title: InkWell(
+                            onTap: () {
+                              launch(link.url);
+                            },
+                            child: Text(link.title,
+                                style: const TextStyle(color: Colors.blue))));
+                  }).toList(),
+                )
               ]),
             )));
   }
