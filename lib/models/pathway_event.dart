@@ -7,11 +7,11 @@ class PathwayEvent {
   String generalInfo = '';
   String medicalInfo = '';
   PathwayEventType type = PathwayEventType.event;
-  List<AgeInterval> initialSchedule = [];
+  List<AgeInterval> ageIntervals = [];
   List<Link> infoLinks = [];
 
   PathwayEvent(
-      this.title, this.generalInfo, this.medicalInfo, this.initialSchedule);
+      this.title, this.generalInfo, this.medicalInfo, this.ageIntervals);
 
   PathwayEvent.fromJson(Map<String, dynamic> map) {
     title = map['title'];
@@ -26,7 +26,7 @@ class PathwayEvent {
         .map((schedule) => Link.fromJson(schedule))
         .toList();
 
-    initialSchedule = (map['initialSchedule'] as List)
+    ageIntervals = (map['ageIntervals'] as List)
         .map((schedule) => AgeInterval.fromJson(schedule))
         .toList();
   }

@@ -19,7 +19,8 @@ class PathwayEventListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DateTime dateOfBirth = DateTime(2021, 2, 8);
-    DateTime dateInFuture = dateOfBirth.add(const Duration(days: (365 * 1)));
+    DateTime dateAtAge18 =
+        DateTime(dateOfBirth.year + 18, dateOfBirth.month, dateOfBirth.day);
 
     List<PathwayMonth> pathwayMonths = [];
     List<PathwayEventDate> matchedPathwayEventDates = [];
@@ -34,7 +35,7 @@ class PathwayEventListScreen extends StatelessWidget {
         var age = AgeCalculator.age(dateOfBirth, today: currentDate);
 
         matchedPathwayEventDates.addAll(pathwayEvents.where((pathwayEvent) {
-          return pathwayEvent.initialSchedule.any((schedule) {
+          return pathwayEvent.ageIntervals.any((schedule) {
             return age.years == schedule.years &&
                 age.months == schedule.months &&
                 age.days == 0;
@@ -50,7 +51,7 @@ class PathwayEventListScreen extends StatelessWidget {
 
         matchedPathwayEventDates = [];
       }
-    } while (currentDate.isBefore(dateInFuture));
+    } while (currentDate.isBefore(dateAtAge18));
 
     return Scaffold(
         appBar: AppBar(title: const Text('T21 Combined Care Pathway')),

@@ -2,112 +2,132 @@
   {
     "title": "Birthday",
     "eventType": "birthday",
-    "initialSchedule": [
-      { "years": 0, "months": 0 }
+    "ageIntervals": [
+      { "years": 0, "months": 0 },
+      { "years": 1, "months": 0 },
+      { "years": 2, "months": 0 },
+      { "years": 3, "months": 0 },
+      { "years": 4, "months": 0 },
+      { "years": 5, "months": 0 },
+      { "years": 6, "months": 0 },
+      { "years": 7, "months": 0 },
+      { "years": 8, "months": 0 },
+      { "years": 9, "months": 0 },
+      { "years": 10, "months": 0 },
+      { "years": 11, "months": 0 },
+      { "years": 12, "months": 0 },
+      { "years": 13, "months": 0 },
+      { "years": 14, "months": 0 },
+      { "years": 15, "months": 0 },
+      { "years": 16, "months": 0 },
+      { "years": 17, "months": 0 },
+      { "years": 18, "months": 0 }
     ]
   },
   {
     "title": "6-in-1 vaccine",
-    "initialSchedule": [
+    "ageIntervals": [
       { "years": 0, "months": 2 }
     ]
   },
   {
     "title": "Rotavirus vaccine",
-    "initialSchedule": [
+    "ageIntervals": [
       { "years": 0, "months": 2 }
     ]
   },
   {
     "title": "MenB vaccine",
-    "initialSchedule": [
+    "ageIntervals": [
       { "years": 0, "months": 2 }
     ]
   },
   {
     "title": "6-in-1 vaccine (2nd dose)",
-    "initialSchedule": [
+    "ageIntervals": [
       { "years": 0, "months": 3 }
     ]
   },
   {
     "title": "Rotavirus vaccine (2nd dose)",
-    "initialSchedule": [
+    "ageIntervals": [
       { "years": 0, "months": 3 }
     ]
   },
   {
     "title": "Pneumococcal (PCV) vaccine",
-    "initialSchedule": [
+    "ageIntervals": [
       { "years": 0, "months": 3 }
     ]
   },
   {
     "title": "6-in-1 vaccine (3rd dose)",
-    "initialSchedule": [
+    "ageIntervals": [
       { "years": 0, "months": 4 }
     ]
   },
   {
     "title": "MenB vaccine (2nd dose)",
-    "initialSchedule": [
+    "ageIntervals": [
       { "years": 0, "months": 4 }
     ]
   },
   {
     "title": "MenB vaccine (3rd dose)",
-    "initialSchedule": [
+    "ageIntervals": [
       { "years": 1, "months": 0 }
     ]
   },
   {
     "title": "Hib/MenC vaccine",
-    "initialSchedule": [
+    "ageIntervals": [
       { "years": 1, "months": 0 }
     ]
   },
   {
     "title": "MMR vaccine",
-    "initialSchedule": [
+    "ageIntervals": [
       { "years": 1, "months": 0 }
     ]
   },
   {
     "title": "Pneumococcal (PCV) vaccine (2nd dose)",
-    "initialSchedule": [
+    "ageIntervals": [
       { "years": 1, "months": 0 }
     ]
   },
   {
     "title": "Community paediatric clinic appointment",
-    "initialSchedule": [
+    "ageIntervals": [
       { "years": 0, "months": 3 },
       { "years": 0, "months": 6 },
-      { "years": 1, "months": 0 }
-    ],
-    "repeatingSchedule": { 
-      "fromAge": { "years": 2, "months": 0 }, 
-      "untilAge": { "years": 16, "months": 0 },
-      "interval": { "years": 1, "months": 0 }
-    }
+      { "years": 1, "months": 0 },
+      { "years": 2, "months": 0 },
+      { "years": 3, "months": 0 },
+      { "years": 4, "months": 0 },
+      { "years": 5, "months": 0 },
+      { "years": 6, "months": 0 },
+      { "years": 7, "months": 0 },
+      { "years": 8, "months": 0 },
+      { "years": 9, "months": 0 },
+      { "years": 10, "months": 0 },
+      { "years": 11, "months": 0 },
+      { "years": 12, "months": 0 },
+      { "years": 13, "months": 0 },
+      { "years": 14, "months": 0 },
+      { "years": 15, "months": 0 },
+      { "years": 16, "months": 0 }
+    ]
   },
   {
     "title": "GP enhanced review",
-    "initialSchedule": [],
-    "repeatingSchedule": { 
-      "fromAge": { "years": 14, "months": 0 }, 
-      "interval": { "years": 1, "months": 0 }
-    }
-  },
-  {
-    "title": "Flu vaccine - first dose",
-    "initialSchedule": [],
-    "repeatingSchedule": { 
-      "fromMonth": 9,
-      "untilMonth": 12,
-      "fromAge": { "years": 0, "months": 6 }, 
-      "interval": { "years": 1, "months": 0 }
-    }
+    "ageIntervals": [
+      { "years": 14, "months": 0 },
+      { "years": 15, "months": 0 },
+      { "years": 16, "months": 0 },
+      { "years": 17, "months": 0 },
+      { "years": 18, "months": 0 }
+    ]
   },
   {
     "title": "Thyroid function check",
@@ -117,25 +137,37 @@
       { "title": "Down's Syndrome Association - Thyroid", "url": "https://www.downs-syndrome.org.uk/about-downs-syndrome/health-and-wellbeing/thyroid/" },
       { "title": "NHS - Underactive thyroid", "url": "https://www.nhs.uk/conditions/underactive-thyroid-hypothyroidism/" }
     ],
-    "initialSchedule": [
+    "ageIntervals": [
       { "years": 0, "months": 6 },
-      { "years": 1, "months": 0 }
-    ],
-    "repeatingSchedule": { 
-      "fromAge": { "years": 2, "months": 0 }, 
-      "interval": { "years": 1, "months": 0 }
-    }
+      { "years": 1, "months": 0 },
+      { "years": 2, "months": 0 },
+      { "years": 3, "months": 0 },
+      { "years": 4, "months": 0 },
+      { "years": 5, "months": 0 },
+      { "years": 6, "months": 0 },
+      { "years": 7, "months": 0 },
+      { "years": 8, "months": 0 },
+      { "years": 9, "months": 0 },
+      { "years": 10, "months": 0 },
+      { "years": 11, "months": 0 },
+      { "years": 12, "months": 0 },
+      { "years": 13, "months": 0 },
+      { "years": 14, "months": 0 },
+      { "years": 15, "months": 0 },
+      { "years": 16, "months": 0 },
+      { "years": 17, "months": 0 },
+      { "years": 18, "months": 0 }
+    ]
   },
   {
     "title": "Overnight oximetry",
-    "initialSchedule": [
+    "ageIntervals": [
       { "years": 0, "months": 6 },
-      { "years": 1, "months": 0 }
-    ],
-    "repeatingSchedule": { 
-      "fromAge": { "years": 2, "months": 0 },
-      "untilAge": { "years": 5, "months": 0 }, 
-      "interval": { "years": 1, "months": 0 }
-    }
+      { "years": 1, "months": 0 },
+      { "years": 2, "months": 0 },
+      { "years": 3, "months": 0 },
+      { "years": 4, "months": 0 },
+      { "years": 5, "months": 0 }
+    ]
   }
 ]
