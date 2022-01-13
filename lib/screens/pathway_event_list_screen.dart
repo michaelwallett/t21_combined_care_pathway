@@ -9,11 +9,13 @@ import '../models/pathway_month.dart';
 class PathwayEventListScreen extends StatelessWidget {
   final List<PathwayEvent> pathwayEvents;
   final ValueChanged<PathwayEventDate> onPathwayEventDateSelected;
+  final ValueChanged<bool> onShowUserDetailSelected;
 
   const PathwayEventListScreen(
       {Key? key,
       required this.pathwayEvents,
-      required this.onPathwayEventDateSelected})
+      required this.onPathwayEventDateSelected,
+      required this.onShowUserDetailSelected})
       : super(key: key);
 
   @override
@@ -55,6 +57,25 @@ class PathwayEventListScreen extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(title: const Text('T21 Combined Care Pathway')),
+        drawer: Drawer(
+            child: ListView(
+          children: [
+            const DrawerHeader(
+                decoration: BoxDecoration(color: Colors.blue),
+                child: Text('T21 Combined Care Pathway',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                    ))),
+            ListTile(
+                leading: const Icon(Icons.settings),
+                title: const Text('Settings'),
+                onTap: () {
+                  Navigator.pop(context);
+                  onShowUserDetailSelected(true);
+                }),
+          ],
+        )),
         body: ListView.builder(
             padding: const EdgeInsets.all(8.0),
             itemCount: pathwayMonths.length,

@@ -4,6 +4,7 @@ import 'models/pathway_event_date.dart';
 import 'pages/pathway_event_details_page.dart';
 import 'pages/pathway_event_list_page.dart';
 import 'mappers/pathway_event_mapper.dart';
+import 'pages/user_details_page.dart';
 
 void main() {
   runApp(const T21PathwayApp());
@@ -18,6 +19,7 @@ class T21PathwayApp extends StatefulWidget {
 
 class _T21PathwayAppState extends State<T21PathwayApp> {
   PathwayEventDate? _selectedPathwayEventDate;
+  bool _showUserDetails = false;
   late Future<List<PathwayEvent>> _futurePathwayEvents;
 
   @override
@@ -37,10 +39,11 @@ class _T21PathwayAppState extends State<T21PathwayApp> {
               if (snapshot.hasData) {
                 return Navigator(
                   pages: [
-                    PathwayEventListPage(
-                        snapshot.data!, _onPathwayEventDateSelected),
+                    PathwayEventListPage(snapshot.data!,
+                        _onPathwayEventDateSelected, _onShowUserDetailSelected),
                     if (_selectedPathwayEventDate != null)
-                      PathwayEventDetailsPage(_selectedPathwayEventDate!)
+                      PathwayEventDetailsPage(_selectedPathwayEventDate!),
+                    if (_showUserDetails) UserDetailsPage()
                   ],
                   onPopPage: (route, result) {
                     if (!route.didPop(result)) {
@@ -49,6 +52,7 @@ class _T21PathwayAppState extends State<T21PathwayApp> {
 
                     setState(() {
                       _selectedPathwayEventDate = null;
+                      _showUserDetails = false;
                     });
 
                     return true;
@@ -70,6 +74,12 @@ class _T21PathwayAppState extends State<T21PathwayApp> {
   void _onPathwayEventDateSelected(PathwayEventDate pathwayEventDate) {
     setState(() {
       _selectedPathwayEventDate = pathwayEventDate;
+    });
+  }
+
+  void _onShowUserDetailSelected(bool showUserDetails) {
+    setState(() {
+      _showUserDetails = showUserDetails;
     });
   }
 }

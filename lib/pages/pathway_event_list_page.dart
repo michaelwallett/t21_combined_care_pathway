@@ -6,8 +6,10 @@ import '../screens/pathway_event_list_screen.dart';
 class PathwayEventListPage extends Page {
   final List<PathwayEvent> pathwayEvents;
   final ValueChanged<PathwayEventDate> onPathwayEventDateSelected;
+  final ValueChanged<bool> onShowUserDetailSelected;
 
-  PathwayEventListPage(this.pathwayEvents, this.onPathwayEventDateSelected)
+  PathwayEventListPage(this.pathwayEvents, this.onPathwayEventDateSelected,
+      this.onShowUserDetailSelected)
       : super(key: ValueKey('$PathwayEventListPage'));
 
   @override
@@ -17,7 +19,8 @@ class PathwayEventListPage extends Page {
       builder: (BuildContext context) {
         return PathwayEventListScreen(
             pathwayEvents: pathwayEvents,
-            onPathwayEventDateSelected: onPathwayEventDateSelected);
+            onPathwayEventDateSelected: onPathwayEventDateSelected,
+            onShowUserDetailSelected: onShowUserDetailSelected);
       },
     );
   }
