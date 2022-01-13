@@ -24,12 +24,14 @@ class PathwayEventDetailsScreen extends StatelessWidget {
                         style: Theme.of(context).textTheme.headline5),
                     subtitle: Text(
                         DateFormat.yMMMMd().format(pathwayEventDate.date))),
-                ListTile(
-                    leading: const Icon(Icons.help_outline),
-                    title: Text(pathwayEventDate.event.generalInfo)),
-                ListTile(
-                    leading: const Icon(Icons.medical_services_outlined),
-                    title: Text(pathwayEventDate.event.medicalInfo)),
+                if (pathwayEventDate.event.generalInfo.isNotEmpty)
+                  ListTile(
+                      leading: const Icon(Icons.help_outline),
+                      title: Text(pathwayEventDate.event.generalInfo)),
+                if (pathwayEventDate.event.medicalInfo.isNotEmpty)
+                  ListTile(
+                      leading: const Icon(Icons.medical_services_outlined),
+                      title: Text(pathwayEventDate.event.medicalInfo)),
                 Column(
                   children: pathwayEventDate.event.infoLinks.map((link) {
                     return ListTile(
