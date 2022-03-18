@@ -7,9 +7,9 @@ class UserSettingsRepository {
   Future<UserSettings> get() async {
     final preferences = await SharedPreferences.getInstance();
 
-    DateTime? dateOfBirth;
-
     var dateOfBirthValue = preferences.getString(dateOfBirthKey);
+
+    DateTime? dateOfBirth;
 
     if (dateOfBirthValue != null) {
       dateOfBirth = DateTime.tryParse(dateOfBirthValue);
