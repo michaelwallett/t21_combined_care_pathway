@@ -87,7 +87,7 @@ class _SettingsFormState extends State<SettingsForm> {
   _selectDateOfBirth(BuildContext context, UserSettings settings) async {
     final currentDate = DateTime.now();
 
-    final initialDate = settings.dateOfBirth ?? DateTime.now();
+    final initialDate = settings.dateOfBirth ?? currentDate;
 
     final firstDate =
         DateTime(currentDate.year - 18, currentDate.month, currentDate.day);
