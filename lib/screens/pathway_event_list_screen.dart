@@ -11,7 +11,7 @@ import '../models/pathway_month.dart';
 class PathwayEventListScreen extends StatelessWidget {
   final List<PathwayEvent> pathwayEvents;
   final ValueChanged<PathwayEventDate> onPathwayEventDateSelected;
-  final ValueChanged<bool> onShowUserDetailSelected;
+  final ValueChanged<bool> onShowUserSettingsSelected;
 
   final _userSettings = UserSettingsRepository().get();
 
@@ -19,7 +19,7 @@ class PathwayEventListScreen extends StatelessWidget {
       {Key? key,
       required this.pathwayEvents,
       required this.onPathwayEventDateSelected,
-      required this.onShowUserDetailSelected})
+      required this.onShowUserSettingsSelected})
       : super(key: key);
 
   @override
@@ -41,7 +41,7 @@ class PathwayEventListScreen extends StatelessWidget {
                 title: const Text('Settings'),
                 onTap: () {
                   Navigator.pop(context);
-                  onShowUserDetailSelected(true);
+                  onShowUserSettingsSelected(true);
                 }),
           ],
         )),

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import '../screens/user_details_screen.dart';
+import '../screens/user_settings_screen.dart';
 
-class UserDetailsPage extends Page {
-  UserDetailsPage() : super(key: ValueKey('$UserDetailsPage'));
+class UserSettingsPage extends Page {
+  UserSettingsPage() : super(key: ValueKey('$UserSettingsPage'));
 
   @override
   Route createRoute(BuildContext context) {
     return MaterialPageRoute(
       settings: this,
       builder: (BuildContext context) {
-        return const UserDetailsScreen();
+        return const UserSettingsScreen();
       },
     );
   }
