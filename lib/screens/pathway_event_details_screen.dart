@@ -19,7 +19,7 @@ class PathwayEventDetailsScreen extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(children: [
                 ListTile(
-                    leading: getEventIcon(pathwayEventDate.event.type),
+                    leading: _getEventIcon(pathwayEventDate.event.type),
                     title: Text(pathwayEventDate.event.title,
                         style: Theme.of(context).textTheme.headline5),
                     subtitle: Text(
@@ -48,7 +48,7 @@ class PathwayEventDetailsScreen extends StatelessWidget {
             )));
   }
 
-  Icon getEventIcon(PathwayEventType eventType) {
+  Icon _getEventIcon(PathwayEventType eventType) {
     if (eventType == PathwayEventType.birthday) {
       return const Icon(Icons.cake);
     }
