@@ -110,9 +110,9 @@ class _SettingsFormState extends State<SettingsForm> {
 
   _setDateOfBirthController(DateTime? dateTime) {
     if (dateTime == null) {
-      return;
+      _dateOfBirthController.text = '';
+    } else {
+      _dateOfBirthController.text = DateFormat.yMMMd().format(dateTime);
     }
-
-    _dateOfBirthController.text = DateFormat.yMMMd().format(dateTime);
   }
 }
