@@ -30,6 +30,7 @@ dependencies:
   intl: ^0.17.0
   age_calculator: ^1.0.0
   url_launcher: ^6.0.18
+  shared_preferences: ^2.0.13
   flutter:
     sdk: flutter
 
