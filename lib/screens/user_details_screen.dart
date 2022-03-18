@@ -48,7 +48,7 @@ class _SettingsFormState extends State<SettingsForm> {
                           keyboardType: TextInputType.datetime,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter a Date of Birth';
+                              return 'Please select a Date of Birth';
                             }
 
                             return null;
@@ -58,7 +58,10 @@ class _SettingsFormState extends State<SettingsForm> {
                               icon: Icon(Icons.calendar_today))),
                     ),
                   ),
+                  const SizedBox(height: 30),
                   ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          minimumSize: const Size.fromHeight(50)),
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           UserSettingsRepository().save(snapshot.data!);
@@ -66,7 +69,7 @@ class _SettingsFormState extends State<SettingsForm> {
                           Navigator.pop(context);
                         }
                       },
-                      child: const Text('Save'))
+                      child: const Text('Save', style: TextStyle(fontSize: 24)))
                 ]);
               } else {
                 return const CircularProgressIndicator();
