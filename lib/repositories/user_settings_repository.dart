@@ -2,12 +2,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../models/user_settings.dart';
 
 class UserSettingsRepository {
-  final dateOfBirthKey = 'DateOfBirthKey';
+  final _dateOfBirthKey = 'DateOfBirthKey';
 
   Future<UserSettings> get() async {
     final preferences = await SharedPreferences.getInstance();
 
-    var dateOfBirthValue = preferences.getString(dateOfBirthKey);
+    var dateOfBirthValue = preferences.getString(_dateOfBirthKey);
 
     DateTime? dateOfBirth;
 
@@ -22,6 +22,6 @@ class UserSettingsRepository {
     final preferences = await SharedPreferences.getInstance();
 
     await preferences.setString(
-        dateOfBirthKey, settings.dateOfBirth!.toIso8601String());
+        _dateOfBirthKey, settings.dateOfBirth!.toIso8601String());
   }
 }
