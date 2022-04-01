@@ -1,80 +1,80 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import '../shared/models/user_settings.dart';
-import '../shared/repositories/user_settings_repository.dart';
+import '../shared/providers/user_settings_provider.dart';
 
-class UserSettingsForm extends StatefulWidget {
-  const UserSettingsForm({Key? key}) : super(key: key);
+class UserSettingsForm extends HookConsumerWidget {
+  UserSettingsForm({Key? key}) : super(key: key);
 
-  @override
-  State<UserSettingsForm> createState() => _UserSettingsFormState();
-}
-
-class _UserSettingsFormState extends State<UserSettingsForm> {
   final _formKey = GlobalKey<FormState>();
-  final _dateOfBirthController = TextEditingController();
-
-  final _userSettings = UserSettingsRepository().get();
 
   @override
-  Widget build(BuildContext context) {
-    return Form(
-        key: _formKey,
-        child: FutureBuilder<UserSettings>(
-            future: _userSettings,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                _setDateOfBirthController(snapshot.data!.dateOfBirth);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final dateOfBirthController = useTextEditingController();
+    final userSettingsAsyncValue = ref.watch(userSettingsProvider);
 
-                return Column(children: [
-                  GestureDetector(
-                    onTap: () => _selectDateOfBirth(context, snapshot.data!),
-                    child: AbsorbPointer(
-                      child: TextFormField(
-                          controller: _dateOfBirthController,
-                          keyboardType: TextInputType.datetime,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please select a Date of Birth';
-                            }
+    return userSettingsAsyncValue.when(
+        data: ((userSettings) {
+          _setDateOfBirthController(
+              dateOfBirthController, userSettings.dateOfBirth);
+          return Form(
+              key: _formKey,
+              child: Column(children: [
+                GestureDetector(
+                  onTap: () => _selectDateOfBirth(context, ref,
+                      dateOfBirthController, userSettings.dateOfBirth),
+                  child: AbsorbPointer(
+                    child: TextFormField(
+                        controller: dateOfBirthController,
+                        keyboardType: TextInputType.datetime,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please select a Date of Birth';
+                          }
 
-                            return null;
-                          },
-                          decoration: const InputDecoration(
-                              labelText: 'Date of Birth',
-                              icon: Icon(Icons.calendar_today))),
-                    ),
+                          return null;
+                        },
+                        onSaved: (value) {
+                          final dateOfBirth = DateFormat.yMMMd().parse(value!);
+
+                          ref
+                              .read(userSettingsProvider.notifier)
+                              .updateDateOfBirth(dateOfBirth);
+                        },
+                        decoration: const InputDecoration(
+                            labelText: 'Date of Birth',
+                            icon: Icon(Icons.calendar_today))),
                   ),
-                  const SizedBox(height: 30),
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          minimumSize: const Size.fromHeight(50)),
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          UserSettingsRepository().save(snapshot.data!);
+                ),
+                const SizedBox(height: 30),
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        minimumSize: const Size.fromHeight(50)),
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        _formKey.currentState!.save();
 
-                          Navigator.pop(context);
-                        }
-                      },
-                      child: const Text('Save', style: TextStyle(fontSize: 24)))
-                ]);
-              } else {
-                return const CircularProgressIndicator();
-              }
-            }));
+                        ref.read(userSettingsProvider.notifier).save();
+
+                        Navigator.pop(context);
+                      }
+                    },
+                    child: const Text('Save', style: TextStyle(fontSize: 24)))
+              ]));
+        }),
+        error: (err, _) => const Text('Oops'),
+        loading: () => const CircularProgressIndicator());
   }
 
-  @override
-  void dispose() {
-    _dateOfBirthController.dispose();
-
-    super.dispose();
-  }
-
-  _selectDateOfBirth(BuildContext context, UserSettings settings) async {
+  _selectDateOfBirth(
+      BuildContext context,
+      WidgetRef ref,
+      TextEditingController dateOfBirthController,
+      DateTime? dateOfBirth) async {
     final currentDate = DateTime.now();
 
-    final initialDate = settings.dateOfBirth ?? currentDate;
+    final initialDate = dateOfBirth ?? currentDate;
 
     final firstDate =
         DateTime(currentDate.year - 18, currentDate.month, currentDate.day);
@@ -88,18 +88,16 @@ class _UserSettingsFormState extends State<UserSettingsForm> {
         lastDate: lastDate);
 
     if (pickedDate != null) {
-      setState(() {
-        settings.dateOfBirth = pickedDate;
-        _setDateOfBirthController(pickedDate);
-      });
+      _setDateOfBirthController(dateOfBirthController, pickedDate);
     }
   }
 
-  _setDateOfBirthController(DateTime? dateTime) {
-    if (dateTime == null) {
-      _dateOfBirthController.text = '';
+  _setDateOfBirthController(
+      TextEditingController dateOfBirthController, DateTime? dateOfBirth) {
+    if (dateOfBirth == null) {
+      dateOfBirthController.text = '';
     } else {
-      _dateOfBirthController.text = DateFormat.yMMMd().format(dateTime);
+      dateOfBirthController.text = DateFormat.yMMMd().format(dateOfBirth);
     }
   }
 }

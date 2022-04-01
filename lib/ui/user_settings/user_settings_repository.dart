@@ -1,5 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import '../models/user_settings.dart';
+import '../../shared/models/user_settings.dart';
 
 class UserSettingsRepository {
   final _dateOfBirthKey = 'DateOfBirthKey';
@@ -18,7 +18,7 @@ class UserSettingsRepository {
     return UserSettings(dateOfBirth);
   }
 
-  void save(UserSettings settings) async {
+  save(UserSettings settings) async {
     final preferences = await SharedPreferences.getInstance();
 
     await preferences.setString(
