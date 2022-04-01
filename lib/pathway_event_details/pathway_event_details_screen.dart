@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../models/pathway_event_type.dart';
-import '../models/pathway_event_date.dart';
+import '../shared/models/pathway_event_type.dart';
+import '../shared/models/pathway_event_date.dart';
 
 class PathwayEventDetailsScreen extends StatelessWidget {
   final PathwayEventDate pathwayEventDate;

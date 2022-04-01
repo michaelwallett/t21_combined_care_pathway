@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:age_calculator/age_calculator.dart';
-import '../repositories/user_settings_repository.dart';
-import '../models/user_settings.dart';
-import '../models/pathway_event_type.dart';
-import '../models/pathway_event.dart';
-import '../models/pathway_event_date.dart';
-import '../models/pathway_month.dart';
+import '../shared/repositories/user_settings_repository.dart';
+import '../shared/models/user_settings.dart';
+import '../shared/models/pathway_event_type.dart';
+import '../shared/models/pathway_event.dart';
+import '../shared/models/pathway_event_date.dart';
+import '../shared/models/pathway_month.dart';
 
 class PathwayEventListScreen extends StatelessWidget {
   final List<PathwayEvent> pathwayEvents;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../models/user_settings.dart';
-import '../repositories/user_settings_repository.dart';
+import '../shared/models/user_settings.dart';
+import '../shared/repositories/user_settings_repository.dart';
 
 class UserSettingsForm extends StatefulWidget {
   const UserSettingsForm({Key? key}) : super(key: key);

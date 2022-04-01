@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../models/pathway_event_date.dart';
-import '../screens/pathway_event_details_screen.dart';
+import '../shared/models/pathway_event_date.dart';
+import 'pathway_event_details_screen.dart';
 
 class PathwayEventDetailsPage extends Page {
   final PathwayEventDate _pathwayEventDate;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../screens/user_settings_screen.dart';
+import 'user_settings_screen.dart';
 
 class UserSettingsPage extends Page {
   UserSettingsPage() : super(key: ValueKey('$UserSettingsPage'));

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/user_settings_form.dart';
+import 'user_settings_form.dart';
 
 class UserSettingsScreen extends StatelessWidget {
   const UserSettingsScreen({Key? key}) : super(key: key);
