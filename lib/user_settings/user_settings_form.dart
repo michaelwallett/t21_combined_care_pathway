@@ -22,8 +22,8 @@ class UserSettingsForm extends HookConsumerWidget {
               key: _formKey,
               child: Column(children: [
                 GestureDetector(
-                  onTap: () => _selectDateOfBirth(context, ref,
-                      dateOfBirthController, userSettings.dateOfBirth),
+                  onTap: () => _selectDateOfBirth(
+                      context, dateOfBirthController, userSettings.dateOfBirth),
                   child: AbsorbPointer(
                     child: TextFormField(
                         controller: dateOfBirthController,
@@ -69,7 +69,6 @@ class UserSettingsForm extends HookConsumerWidget {
 
   _selectDateOfBirth(
       BuildContext context,
-      WidgetRef ref,
       TextEditingController dateOfBirthController,
       DateTime? dateOfBirth) async {
     final currentDate = DateTime.now();
