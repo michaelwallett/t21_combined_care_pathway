@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:age_calculator/age_calculator.dart';
-import '../shared/repositories/user_settings_repository.dart';
+import '../shared/providers/user_settings_provider.dart';
 import '../shared/models/user_settings.dart';
 import '../shared/models/pathway_event_type.dart';
 import '../shared/models/pathway_event.dart';
 import '../shared/models/pathway_event_date.dart';
 import '../shared/models/pathway_month.dart';
 
-class PathwayEventListScreen extends StatelessWidget {
+class PathwayEventListScreen extends HookConsumerWidget {
   final List<PathwayEvent> pathwayEvents;
   final ValueChanged<PathwayEventDate> onPathwayEventDateSelected;
   final ValueChanged<bool> onShowUserSettingsSelected;
 
-  final _userSettings = UserSettingsRepository().get();
-
-  PathwayEventListScreen(
+  const PathwayEventListScreen(
       {Key? key,
       required this.pathwayEvents,
       required this.onPathwayEventDateSelected,
@@ -23,41 +22,38 @@ class PathwayEventListScreen extends StatelessWidget {
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: const Text('T21 Combined Care Pathway')),
-        drawer: Drawer(
-            child: ListView(
-          children: [
-            const DrawerHeader(
-                decoration: BoxDecoration(color: Colors.blue),
-                child: Text('T21 Combined Care Pathway',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                    ))),
-            ListTile(
-                leading: const Icon(Icons.settings),
-                title: const Text('Settings'),
-                onTap: () {
-                  Navigator.pop(context);
-                  onShowUserSettingsSelected(true);
-                }),
-          ],
-        )),
-        body: FutureBuilder<UserSettings>(
-          future: _userSettings,
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return const CircularProgressIndicator();
-            }
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userSettingsAsyncValue = ref.watch(userSettingsProvider);
 
-            List<PathwayMonth> pathwayMonths =
-                _getPathwayMonths(snapshot.data!);
+    return userSettingsAsyncValue.when(
+        data: (userSettings) {
+          List<PathwayMonth> pathwayMonths = _getPathwayMonths(userSettings);
 
-            return _getList(pathwayMonths);
-          },
-        ));
+          return Scaffold(
+              appBar: AppBar(title: const Text('T21 Combined Care Pathway')),
+              drawer: Drawer(
+                  child: ListView(
+                children: [
+                  const DrawerHeader(
+                      decoration: BoxDecoration(color: Colors.blue),
+                      child: Text('T21 Combined Care Pathway',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                          ))),
+                  ListTile(
+                      leading: const Icon(Icons.settings),
+                      title: const Text('Settings'),
+                      onTap: () {
+                        Navigator.pop(context);
+                        onShowUserSettingsSelected(true);
+                      }),
+                ],
+              )),
+              body: _getList(pathwayMonths));
+        },
+        loading: () => const CircularProgressIndicator(),
+        error: (err, _) => const Text('Oops'));
   }
 
   List<PathwayMonth> _getPathwayMonths(UserSettings settings) {
