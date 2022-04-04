@@ -29,6 +29,7 @@ class _T21PathwayAppState extends State<T21PathwayApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'T21 Combined Care Pathway',
+        debugShowCheckedModeBanner: false,
         home: FutureBuilder<List<PathwayEvent>>(
             future: _futurePathwayEvents,
             builder: (context, snapshot) {
