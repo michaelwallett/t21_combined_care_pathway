@@ -15,7 +15,7 @@ class UserSettingsForm extends HookConsumerWidget {
     final userSettingsAsyncValue = ref.watch(userSettingsProvider);
 
     return userSettingsAsyncValue.when(
-        data: ((userSettings) {
+        data: (userSettings) {
           _setDateOfBirthController(
               dateOfBirthController, userSettings.dateOfBirth);
           return Form(
@@ -62,7 +62,7 @@ class UserSettingsForm extends HookConsumerWidget {
                     },
                     child: const Text('Save', style: TextStyle(fontSize: 24)))
               ]));
-        }),
+        },
         error: (err, _) => const Text('Oops'),
         loading: () => const CircularProgressIndicator());
   }
