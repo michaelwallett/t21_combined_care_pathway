@@ -17,35 +17,34 @@ class PathwayEventDetailsScreen extends StatelessWidget {
         body: Padding(
             padding: const EdgeInsets.all(20.0),
             child: SingleChildScrollView(
-              child: Column(children: [
+                child: Column(children: [
+              ListTile(
+                  leading: _getEventIcon(pathwayEventDate.event.type),
+                  title: Text(pathwayEventDate.event.title,
+                      style: Theme.of(context).textTheme.headline5),
+                  subtitle:
+                      Text(DateFormat.yMMMMd().format(pathwayEventDate.date))),
+              if (pathwayEventDate.event.generalInfo.isNotEmpty)
                 ListTile(
-                    leading: _getEventIcon(pathwayEventDate.event.type),
-                    title: Text(pathwayEventDate.event.title,
-                        style: Theme.of(context).textTheme.headline5),
-                    subtitle: Text(
-                        DateFormat.yMMMMd().format(pathwayEventDate.date))),
-                if (pathwayEventDate.event.generalInfo.isNotEmpty)
-                  ListTile(
-                      leading: const Icon(Icons.help_outline),
-                      title: Text(pathwayEventDate.event.generalInfo)),
-                if (pathwayEventDate.event.medicalInfo.isNotEmpty)
-                  ListTile(
-                      leading: const Icon(Icons.medical_services_outlined),
-                      title: Text(pathwayEventDate.event.medicalInfo)),
-                Column(
-                  children: pathwayEventDate.event.infoLinks.map((link) {
-                    return ListTile(
-                        leading: const Icon(Icons.link_outlined),
-                        title: InkWell(
-                            onTap: () {
-                              launch(link.url);
-                            },
-                            child: Text(link.title,
-                                style: const TextStyle(color: Colors.blue))));
-                  }).toList(),
-                )
-              ]),
-            )));
+                    leading: const Icon(Icons.help_outline),
+                    title: Text(pathwayEventDate.event.generalInfo)),
+              if (pathwayEventDate.event.medicalInfo.isNotEmpty)
+                ListTile(
+                    leading: const Icon(Icons.medical_services_outlined),
+                    title: Text(pathwayEventDate.event.medicalInfo)),
+              Column(
+                children: pathwayEventDate.event.infoLinks.map((link) {
+                  return ListTile(
+                      leading: const Icon(Icons.link_outlined),
+                      title: InkWell(
+                          onTap: () {
+                            launch(link.url);
+                          },
+                          child: Text(link.title,
+                              style: const TextStyle(color: Colors.blue))));
+                }).toList(),
+              )
+            ]))));
   }
 
   Icon _getEventIcon(PathwayEventType eventType) {

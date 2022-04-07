@@ -11,10 +11,9 @@ class PathwayEventDetailsPage extends Page {
   @override
   Route createRoute(BuildContext context) {
     return MaterialPageRoute(
-      settings: this,
-      builder: (BuildContext context) {
-        return PathwayEventDetailsScreen(pathwayEventDate: _pathwayEventDate);
-      },
-    );
+        settings: this,
+        builder: (BuildContext context) {
+          return PathwayEventDetailsScreen(pathwayEventDate: _pathwayEventDate);
+        });
   }
 }

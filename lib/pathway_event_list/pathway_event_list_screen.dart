@@ -5,7 +5,7 @@ import '../shared/providers/selected_pathway_event_date_provider.dart';
 import '../shared/providers/pathway_months_provider.dart';
 import '../shared/models/pathway_event_type.dart';
 import '../shared/models/pathway_month.dart';
-import '../shared/providers/show_user_settings_provider.dart';
+import '../shared/providers/show_user_settings_page_provider.dart';
 
 class PathwayEventListScreen extends HookConsumerWidget {
   const PathwayEventListScreen({Key? key}) : super(key: key);
@@ -19,26 +19,24 @@ class PathwayEventListScreen extends HookConsumerWidget {
           return Scaffold(
               appBar: AppBar(title: const Text('T21 Pathway')),
               drawer: Drawer(
-                  child: ListView(
-                children: [
-                  const DrawerHeader(
-                      decoration: BoxDecoration(color: Colors.blue),
-                      child: Text('T21 Pathway',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 24,
-                          ))),
-                  ListTile(
-                      leading: const Icon(Icons.settings),
-                      title: const Text('Settings'),
-                      onTap: () {
-                        Navigator.pop(context);
+                  child: ListView(children: [
+                const DrawerHeader(
+                    decoration: BoxDecoration(color: Colors.blue),
+                    child: Text('T21 Pathway',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                        ))),
+                ListTile(
+                    leading: const Icon(Icons.settings),
+                    title: const Text('Settings'),
+                    onTap: () {
+                      Navigator.pop(context);
 
-                        ref.read(showUserSettingsProvider.notifier).state =
-                            true;
-                      }),
-                ],
-              )),
+                      ref.read(showUserSettingsPageProvider.notifier).state =
+                          true;
+                    })
+              ])),
               body: _getList(pathwayMonths, ref));
         },
         loading: () => const CircularProgressIndicator(),

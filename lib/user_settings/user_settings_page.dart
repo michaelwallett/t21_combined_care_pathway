@@ -7,10 +7,9 @@ class UserSettingsPage extends Page {
   @override
   Route createRoute(BuildContext context) {
     return MaterialPageRoute(
-      settings: this,
-      builder: (BuildContext context) {
-        return const UserSettingsScreen();
-      },
-    );
+        settings: this,
+        builder: (BuildContext context) {
+          return const UserSettingsScreen();
+        });
   }
 }
