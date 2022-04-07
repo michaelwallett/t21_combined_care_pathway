@@ -18,22 +18,25 @@ class T21PathwayApp extends HookConsumerWidget {
     return MaterialApp(
         title: 'T21 Combined Care Pathway',
         debugShowCheckedModeBanner: false,
-        home: Navigator(
-            pages: [
-              PathwayEventListPage(),
-              if (selectedPathwayEventDate != null)
-                PathwayEventDetailsPage(selectedPathwayEventDate),
-              if (showUserSettings) UserSettingsPage()
-            ],
-            onPopPage: (route, result) {
-              if (!route.didPop(result)) {
-                return false;
-              }
+        home: SafeArea(
+          child: Navigator(
+              pages: [
+                PathwayEventListPage(),
+                if (selectedPathwayEventDate != null)
+                  PathwayEventDetailsPage(selectedPathwayEventDate),
+                if (showUserSettings) UserSettingsPage()
+              ],
+              onPopPage: (route, result) {
+                if (!route.didPop(result)) {
+                  return false;
+                }
 
-              ref.read(selectedPathwayEventDateProvider.notifier).state = null;
-              ref.read(showUserSettingsProvider.notifier).state = false;
+                ref.read(selectedPathwayEventDateProvider.notifier).state =
+                    null;
+                ref.read(showUserSettingsProvider.notifier).state = false;
 
-              return true;
-            }));
+                return true;
+              }),
+        ));
   }
 }
