@@ -33,9 +33,12 @@ dependencies:
   shared_preferences: ^2.0.13
   flutter_hooks: ^0.18.0
   hooks_riverpod: ^2.0.0-dev.5
+  flutter_app_name: ^0.1.0
   flutter:
     sdk: flutter
 
+flutter_app_name:
+  name: "T21 Combined Care Pathway"
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
