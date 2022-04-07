@@ -23,7 +23,7 @@ class PathwayEventListScreen extends HookConsumerWidget {
                 children: [
                   const DrawerHeader(
                       decoration: BoxDecoration(color: Colors.blue),
-                      child: Text('T21 Combined Care Pathway',
+                      child: Text('T21 Pathway',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 24,
