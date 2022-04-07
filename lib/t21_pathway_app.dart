@@ -16,7 +16,7 @@ class T21PathwayApp extends HookConsumerWidget {
         ref.watch(selectedPathwayEventDateProvider);
 
     return MaterialApp(
-        title: 'T21 Combined Care Pathway',
+        title: 'T21 Pathway',
         debugShowCheckedModeBanner: false,
         home: SafeArea(
           child: Navigator(

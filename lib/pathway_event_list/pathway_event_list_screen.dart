@@ -17,7 +17,7 @@ class PathwayEventListScreen extends HookConsumerWidget {
     return pathwayMonthsAsyncValue.when(
         data: (pathwayMonths) {
           return Scaffold(
-              appBar: AppBar(title: const Text('T21 Combined Care Pathway')),
+              appBar: AppBar(title: const Text('T21 Pathway')),
               drawer: Drawer(
                   child: ListView(
                 children: [

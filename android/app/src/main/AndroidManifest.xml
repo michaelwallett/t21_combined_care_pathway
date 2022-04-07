@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.t21_combined_care_pathway">
    <application
-        android:label="T21 Combined Care Pathway"
+        android:label="T21 Pathway"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

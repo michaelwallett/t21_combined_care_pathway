@@ -46,7 +46,7 @@ dev_dependencies:
     sdk: flutter
 
 flutter_app_name:
-  name: "T21 Combined Care Pathway"
+  name: "T21 Pathway"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
