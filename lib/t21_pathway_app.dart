@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'shared/models/pathway_event_date.dart';
 import 'pathway_event_details/pathway_event_details_page.dart';
 import 'pathway_event_list/pathway_event_list_page.dart';
+import 'shared/providers/show_user_settings_provider.dart';
 import 'user_settings/user_settings_page.dart';
 
 class T21PathwayApp extends ConsumerStatefulWidget {
@@ -14,10 +15,11 @@ class T21PathwayApp extends ConsumerStatefulWidget {
 
 class _T21PathwayAppState extends ConsumerState<T21PathwayApp> {
   PathwayEventDate? _selectedPathwayEventDate;
-  bool _showUserSettings = false;
 
   @override
   Widget build(BuildContext context) {
+    final showUserSettings = ref.watch(showUserSettingsProvider);
+
     return MaterialApp(
         title: 'T21 Combined Care Pathway',
         debugShowCheckedModeBanner: false,
@@ -27,7 +29,7 @@ class _T21PathwayAppState extends ConsumerState<T21PathwayApp> {
                   _onPathwayEventDateSelected, _onShowUserSettingsSelected),
               if (_selectedPathwayEventDate != null)
                 PathwayEventDetailsPage(_selectedPathwayEventDate!),
-              if (_showUserSettings) UserSettingsPage()
+              if (showUserSettings) UserSettingsPage()
             ],
             onPopPage: (route, result) {
               if (!route.didPop(result)) {
@@ -36,8 +38,9 @@ class _T21PathwayAppState extends ConsumerState<T21PathwayApp> {
 
               setState(() {
                 _selectedPathwayEventDate = null;
-                _showUserSettings = false;
               });
+
+              ref.read(showUserSettingsProvider.notifier).state = false;
 
               return true;
             }));
@@ -50,8 +53,6 @@ class _T21PathwayAppState extends ConsumerState<T21PathwayApp> {
   }
 
   void _onShowUserSettingsSelected(bool showUserDetails) {
-    setState(() {
-      _showUserSettings = showUserDetails;
-    });
+    ref.read(showUserSettingsProvider.notifier).state = showUserDetails;
   }
 }
