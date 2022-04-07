@@ -1,34 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:age_calculator/age_calculator.dart';
-import '../shared/providers/user_settings_provider.dart';
-import '../shared/models/user_settings.dart';
+import '../shared/providers/pathway_months_provider.dart';
 import '../shared/models/pathway_event_type.dart';
-import '../shared/models/pathway_event.dart';
 import '../shared/models/pathway_event_date.dart';
 import '../shared/models/pathway_month.dart';
 
 class PathwayEventListScreen extends HookConsumerWidget {
-  final List<PathwayEvent> pathwayEvents;
   final ValueChanged<PathwayEventDate> onPathwayEventDateSelected;
   final ValueChanged<bool> onShowUserSettingsSelected;
 
   const PathwayEventListScreen(
       {Key? key,
-      required this.pathwayEvents,
       required this.onPathwayEventDateSelected,
       required this.onShowUserSettingsSelected})
       : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userSettingsAsyncValue = ref.watch(userSettingsProvider);
+    final pathwayMonthsAsyncValue = ref.watch(pathwayMonthsProvider);
 
-    return userSettingsAsyncValue.when(
-        data: (userSettings) {
-          List<PathwayMonth> pathwayMonths = _getPathwayMonths(userSettings);
-
+    return pathwayMonthsAsyncValue.when(
+        data: (pathwayMonths) {
           return Scaffold(
               appBar: AppBar(title: const Text('T21 Combined Care Pathway')),
               drawer: Drawer(
@@ -54,45 +47,6 @@ class PathwayEventListScreen extends HookConsumerWidget {
         },
         loading: () => const CircularProgressIndicator(),
         error: (err, _) => const Text('Oops'));
-  }
-
-  List<PathwayMonth> _getPathwayMonths(UserSettings settings) {
-    DateTime dateOfBirth = settings.dateOfBirth ?? DateTime(2021, 2, 8);
-    DateTime dateAtAge18 =
-        DateTime(dateOfBirth.year + 18, dateOfBirth.month, dateOfBirth.day);
-
-    List<PathwayMonth> pathwayMonths = [];
-    List<PathwayEventDate> matchedPathwayEventDates = [];
-
-    var currentDate = dateOfBirth;
-
-    do {
-      var currentMonth = currentDate.month;
-      var pathwayMonthTitle = DateFormat.yMMMM().format(currentDate);
-
-      do {
-        var age = AgeCalculator.age(dateOfBirth, today: currentDate);
-
-        matchedPathwayEventDates.addAll(pathwayEvents.where((pathwayEvent) {
-          return pathwayEvent.ageIntervals.any((schedule) {
-            return age.years == schedule.years &&
-                age.months == schedule.months &&
-                age.days == 0;
-          });
-        }).map((pathwayEvent) => PathwayEventDate(pathwayEvent, currentDate)));
-
-        currentDate = currentDate.add(const Duration(days: 1));
-      } while (currentMonth == currentDate.month);
-
-      if (matchedPathwayEventDates.isNotEmpty) {
-        pathwayMonths
-            .add(PathwayMonth(pathwayMonthTitle, matchedPathwayEventDates));
-
-        matchedPathwayEventDates = [];
-      }
-    } while (currentDate.isBefore(dateAtAge18));
-
-    return pathwayMonths;
   }
 
   ListView _getList(List<PathwayMonth> pathwayMonths) {
