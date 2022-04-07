@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'shared/models/pathway_event_date.dart';
 import 'pathway_event_details/pathway_event_details_page.dart';
 import 'pathway_event_list/pathway_event_list_page.dart';
+import 'user_settings/user_settings_page.dart';
 import 'shared/providers/selected_pathway_event_date_provider.dart';
 import 'shared/providers/show_user_settings_provider.dart';
-import 'user_settings/user_settings_page.dart';
 
-class T21PathwayApp extends ConsumerStatefulWidget {
+class T21PathwayApp extends HookConsumerWidget {
   const T21PathwayApp({Key? key}) : super(key: key);
 
   @override
-  _T21PathwayAppState createState() => _T21PathwayAppState();
-}
-
-class _T21PathwayAppState extends ConsumerState<T21PathwayApp> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final showUserSettings = ref.watch(showUserSettingsProvider);
     final selectedPathwayEventDate =
         ref.watch(selectedPathwayEventDateProvider);
@@ -26,8 +20,7 @@ class _T21PathwayAppState extends ConsumerState<T21PathwayApp> {
         debugShowCheckedModeBanner: false,
         home: Navigator(
             pages: [
-              PathwayEventListPage(
-                  _onPathwayEventDateSelected, _onShowUserSettingsSelected),
+              PathwayEventListPage(),
               if (selectedPathwayEventDate != null)
                 PathwayEventDetailsPage(selectedPathwayEventDate),
               if (showUserSettings) UserSettingsPage()
@@ -42,14 +35,5 @@ class _T21PathwayAppState extends ConsumerState<T21PathwayApp> {
 
               return true;
             }));
-  }
-
-  void _onPathwayEventDateSelected(PathwayEventDate pathwayEventDate) {
-    ref.read(selectedPathwayEventDateProvider.notifier).state =
-        pathwayEventDate;
-  }
-
-  void _onShowUserSettingsSelected(bool showUserDetails) {
-    ref.read(showUserSettingsProvider.notifier).state = showUserDetails;
   }
 }

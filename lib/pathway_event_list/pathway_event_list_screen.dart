@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import '../shared/providers/selected_pathway_event_date_provider.dart';
 import '../shared/providers/pathway_months_provider.dart';
 import '../shared/models/pathway_event_type.dart';
-import '../shared/models/pathway_event_date.dart';
 import '../shared/models/pathway_month.dart';
+import '../shared/providers/show_user_settings_provider.dart';
 
 class PathwayEventListScreen extends HookConsumerWidget {
-  final ValueChanged<PathwayEventDate> onPathwayEventDateSelected;
-  final ValueChanged<bool> onShowUserSettingsSelected;
-
-  const PathwayEventListScreen(
-      {Key? key,
-      required this.onPathwayEventDateSelected,
-      required this.onShowUserSettingsSelected})
-      : super(key: key);
+  const PathwayEventListScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -39,17 +33,19 @@ class PathwayEventListScreen extends HookConsumerWidget {
                       title: const Text('Settings'),
                       onTap: () {
                         Navigator.pop(context);
-                        onShowUserSettingsSelected(true);
+
+                        ref.read(showUserSettingsProvider.notifier).state =
+                            true;
                       }),
                 ],
               )),
-              body: _getList(pathwayMonths));
+              body: _getList(pathwayMonths, ref));
         },
         loading: () => const CircularProgressIndicator(),
         error: (err, _) => const Text('Oops'));
   }
 
-  ListView _getList(List<PathwayMonth> pathwayMonths) {
+  ListView _getList(List<PathwayMonth> pathwayMonths, WidgetRef ref) {
     return ListView.builder(
         padding: const EdgeInsets.all(8.0),
         itemCount: pathwayMonths.length,
@@ -74,7 +70,10 @@ class PathwayEventListScreen extends HookConsumerWidget {
                             DateFormat.yMMMMd().format(pathwayEventDate.date)),
                         trailing: IconButton(
                             onPressed: () {
-                              onPathwayEventDateSelected(pathwayEventDate);
+                              ref
+                                  .read(
+                                      selectedPathwayEventDateProvider.notifier)
+                                  .state = pathwayEventDate;
                             },
                             icon: const Icon(Icons.info_outline)))
                   ],
