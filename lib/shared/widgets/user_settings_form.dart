@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:t21_combined_care_pathway/shared/providers/show_user_settings_page_provider.dart';
 import '../providers/user_settings_provider.dart';
 
 class UserSettingsForm extends HookConsumerWidget {
-  final bool shouldPopOnSave;
   final _formKey = GlobalKey<FormState>();
 
-  UserSettingsForm({Key? key, this.shouldPopOnSave: false}) : super(key: key);
+  UserSettingsForm({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -57,10 +57,8 @@ class UserSettingsForm extends HookConsumerWidget {
                         _formKey.currentState!.save();
 
                         ref.read(userSettingsProvider.notifier).save();
-
-                        if (shouldPopOnSave) {
-                          Navigator.pop(context);
-                        }
+                        ref.read(showUserSettingsPageProvider.notifier).state =
+                            false;
                       }
                     },
                     child: const Text('Save', style: TextStyle(fontSize: 24)))

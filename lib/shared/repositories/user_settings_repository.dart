@@ -21,7 +21,7 @@ class UserSettingsRepository {
   void save(UserSettings settings) async {
     final preferences = await SharedPreferences.getInstance();
 
-    await preferences.setString(
-        _dateOfBirthKey, settings.dateOfBirth!.toIso8601String());
+    // await preferences.setString(
+    //     _dateOfBirthKey, settings.dateOfBirth!.toIso8601String());
   }
 }
