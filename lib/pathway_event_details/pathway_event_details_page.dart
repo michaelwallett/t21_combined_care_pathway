@@ -6,7 +6,7 @@ class PathwayEventDetailsPage extends Page {
   final PathwayEventDate _pathwayEventDate;
 
   PathwayEventDetailsPage(this._pathwayEventDate)
-      : super(key: ValueKey(_pathwayEventDate));
+      : super(key: ValueKey('$PathwayEventDetailsPage'));
 
   @override
   Route createRoute(BuildContext context) {

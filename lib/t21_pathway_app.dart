@@ -30,9 +30,9 @@ class T21PathwayApp extends HookConsumerWidget {
                         SplashPage(),
                         if (showWelcomePage) WelcomePage(),
                         if (!showWelcomePage) PathwayEventListPage(),
+                        if (showUserSettingsPage) UserSettingsPage(),
                         if (selectedPathwayEventDate != null)
-                          PathwayEventDetailsPage(selectedPathwayEventDate),
-                        if (showUserSettingsPage) UserSettingsPage()
+                          PathwayEventDetailsPage(selectedPathwayEventDate)
                       ],
                       onPopPage: (route, result) {
                         if (!route.didPop(result)) {
