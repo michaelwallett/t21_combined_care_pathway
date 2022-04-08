@@ -5,9 +5,10 @@ import 'package:intl/intl.dart';
 import '../providers/user_settings_provider.dart';
 
 class UserSettingsForm extends HookConsumerWidget {
-  UserSettingsForm({Key? key}) : super(key: key);
-
+  final bool shouldPopOnSave;
   final _formKey = GlobalKey<FormState>();
+
+  UserSettingsForm({Key? key, this.shouldPopOnSave: false}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -57,7 +58,9 @@ class UserSettingsForm extends HookConsumerWidget {
 
                         ref.read(userSettingsProvider.notifier).save();
 
-                        Navigator.pop(context);
+                        if (shouldPopOnSave) {
+                          Navigator.pop(context);
+                        }
                       }
                     },
                     child: const Text('Save', style: TextStyle(fontSize: 24)))

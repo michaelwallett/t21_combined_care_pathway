@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:t21_combined_care_pathway/splash/splash_page.dart';
 import 'package:t21_combined_care_pathway/welcome/welcome_page.dart';
 import 'pathway_event_details/pathway_event_details_page.dart';
 import 'pathway_event_list/pathway_event_list_page.dart';
@@ -26,11 +27,12 @@ class T21PathwayApp extends HookConsumerWidget {
                 data: (showWelcomePage) {
                   return Navigator(
                       pages: [
-                        PathwayEventListPage(),
+                        SplashPage(),
+                        if (showWelcomePage) WelcomePage(),
+                        if (!showWelcomePage) PathwayEventListPage(),
                         if (selectedPathwayEventDate != null)
                           PathwayEventDetailsPage(selectedPathwayEventDate),
-                        if (showUserSettingsPage) UserSettingsPage(),
-                        if (showWelcomePage) WelcomePage()
+                        if (showUserSettingsPage) UserSettingsPage()
                       ],
                       onPopPage: (route, result) {
                         if (!route.didPop(result)) {

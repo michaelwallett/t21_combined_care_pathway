@@ -10,6 +10,7 @@ class UserSettingsScreen extends StatelessWidget {
         appBar: AppBar(title: const Text('Settings')),
         body: Padding(
             padding: const EdgeInsets.all(20.0),
-            child: Column(children: [UserSettingsForm()])));
+            child:
+                Column(children: [UserSettingsForm(shouldPopOnSave: true)])));
   }
 }

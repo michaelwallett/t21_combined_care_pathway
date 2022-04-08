@@ -7,7 +7,8 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('T21 Pathway')),
+        appBar: AppBar(
+            automaticallyImplyLeading: false, title: const Text('T21 Pathway')),
         body: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(children: [
