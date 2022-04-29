@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
-import 'splash_screen.dart';
 
-class SplashPage extends Page {
-  SplashPage() : super(key: ValueKey('$SplashPage'));
+class SplashPage extends StatelessWidget {
+  const SplashPage({Key? key}) : super(key: key);
 
   @override
-  Route createRoute(BuildContext context) {
-    return MaterialPageRoute(
-        settings: this,
-        builder: (BuildContext context) {
-          return const SplashScreen();
-        });
+  Widget build(BuildContext context) {
+    return Text('Splash');
   }
 }

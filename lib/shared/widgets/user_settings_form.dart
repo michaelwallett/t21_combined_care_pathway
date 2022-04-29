@@ -1,8 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:t21_combined_care_pathway/shared/providers/show_user_settings_page_provider.dart';
+import '../../router.gr.dart';
 import '../providers/user_settings_provider.dart';
 
 class UserSettingsForm extends HookConsumerWidget {
@@ -57,8 +58,8 @@ class UserSettingsForm extends HookConsumerWidget {
                         _formKey.currentState!.save();
 
                         ref.read(userSettingsProvider.notifier).save();
-                        ref.read(showUserSettingsPageProvider.notifier).state =
-                            false;
+
+                        context.pushRoute(PathwayEventListRoute());
                       }
                     },
                     child: const Text('Save', style: TextStyle(fontSize: 24)))

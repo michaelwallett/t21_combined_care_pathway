@@ -3,5 +3,5 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 't21_pathway_app.dart';
 
 void main() {
-  runApp(const ProviderScope(child: T21PathwayApp()));
+  runApp(ProviderScope(child: T21PathwayApp()));
 }

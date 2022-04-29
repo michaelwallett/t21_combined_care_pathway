@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'user_settings_screen.dart';
+import '../shared/widgets/user_settings_form.dart';
 
-class UserSettingsPage extends Page {
-  UserSettingsPage() : super(key: ValueKey('$UserSettingsPage'));
+class UserSettingsPage extends StatelessWidget {
+  const UserSettingsPage({Key? key}) : super(key: key);
 
   @override
-  Route createRoute(BuildContext context) {
-    return MaterialPageRoute(
-        settings: this,
-        builder: (BuildContext context) {
-          return const UserSettingsScreen();
-        });
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(title: const Text('Settings')),
+        body: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(children: [UserSettingsForm()])));
   }
 }
