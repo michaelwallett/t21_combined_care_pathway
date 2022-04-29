@@ -7,7 +7,9 @@ import 'pathway_event_details/pathway_event_details_page.dart';
 @MaterialAutoRouter(replaceInRouteName: 'Page,Route', routes: <AutoRoute>[
   AutoRoute(page: WelcomePage, initial: true),
   AutoRoute(page: PathwayEventListPage, path: '/events'),
-  AutoRoute(page: PathwayEventDetailsPage),
+  CustomRoute(
+      page: PathwayEventDetailsPage,
+      transitionsBuilder: TransitionsBuilders.slideLeft),
   AutoRoute(page: UserSettingsPage, path: '/settings')
 ])
 class $AppRouter {}

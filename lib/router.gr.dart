@@ -35,10 +35,13 @@ class AppRouter extends _i5.RootStackRouter {
     },
     PathwayEventDetailsRoute.name: (routeData) {
       final args = routeData.argsAs<PathwayEventDetailsRouteArgs>();
-      return _i5.MaterialPageX<dynamic>(
+      return _i5.CustomPage<dynamic>(
           routeData: routeData,
           child: _i3.PathwayEventDetailsPage(
-              key: args.key, pathwayEventDate: args.pathwayEventDate));
+              key: args.key, pathwayEventDate: args.pathwayEventDate),
+          transitionsBuilder: _i5.TransitionsBuilders.slideLeft,
+          opaque: true,
+          barrierDismissible: false);
     },
     UserSettingsRoute.name: (routeData) {
       return _i5.MaterialPageX<dynamic>(
